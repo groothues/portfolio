@@ -1,0 +1,42 @@
+services:
+  db:
+    image: postgres:17
+    container_name: portfolio-db
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: portfolio
+      POSTGRES_USER: portfolio
+      POSTGRES_PASSWORD: portfolio
+      TZ: Europe/Berlin
+    ports:
+      - "5432:5432"
+    volumes:
+      - portfolio_db_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U portfolio -d portfolio"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 10s
+
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: portfolio-backend
+    restart: unless-stopped
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      SPRING_PROFILES_ACTIVE: docker
+      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/portfolio
+      SPRING_DATASOURCE_USERNAME: portfolio
+      SPRING_DATASOURCE_PASSWORD: portfolio
+      TWELVE_DATA_API_KEY: ${TWELVE_DATA_API_KEY:-}
+      TZ: Europe/Berlin
+    ports:
+      - "8080:8080"
+
+volumes:
+  portfolio_db_data:
