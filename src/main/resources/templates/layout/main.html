@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<!--
+  Base layout template — used by every page via th:replace on the <html> element:
+
+    <html xmlns:th="http://www.thymeleaf.org"
+          th:replace="~{layout/main :: page('Page Title', ~{::main})}">
+    <body>
+    <main>
+      ... page content ...
+    </main>
+    </body>
+    </html>
+-->
+<html xmlns:th="http://www.thymeleaf.org"
+      th:fragment="page(title, content)" lang="en">
+<head th:replace="~{layout/fragments :: head(${title})}"><title>Portfolio Home</title></head>
+<body>
+<header>
+    <nav th:replace="~{layout/fragments :: nav}"></nav>
+</header>
+<main class="container">
+    <div th:replace="${content}"></div>
+    <div th:replace="~{layout/fragments :: flash-messages}"></div>
+</main>
+<footer th:replace="~{layout/fragments :: footer}"></footer>
+</body>
+</html>

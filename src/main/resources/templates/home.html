@@ -1,11 +1,19 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <title>Portfolio</title>
-</head>
+<html xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{layout/main :: page('Home', ~{::main})}">
 <body>
-<h1>Portfolio</h1>
-<p>Application started successfully.</p>
+<main>
+    <hgroup>
+        <h1>Portfolio Tracker</h1>
+        <p>Track your stock and ETF portfolios in one place.</p>
+    </hgroup>
+    <nav>
+        <ul>
+            <li><a th:href="@{/portfolios}" role="button">Portfolios</a></li>
+            <li><a th:href="@{/instruments}" role="button" class="secondary">Instruments</a></li>
+            <li><a th:href="@{/transactions}" role="button" class="secondary">Transactions</a></li>
+        </ul>
+    </nav>
+</main>
 </body>
 </html>

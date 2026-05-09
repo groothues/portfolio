@@ -36,22 +36,28 @@ Optional: create `.env` with `TWELVE_DATA_API_KEY=<key>` for market data.
 
 Base package: `de.groothues.portfolio`
 
-Planned package layout (mostly unimplemented — see `architecture.md` for the full design):
+Layer rule: `api / ui → domain → persistence`. No entity reaches a template or API response.
 
 ```
-api/page/          ← Thymeleaf page controllers
-api/rest/          ← REST controllers
-application/       ← services (PortfolioService, TransactionService, …)
-domain/model/      ← enums and value types (AssetType, TransactionType, …)
-domain/calculation/← calculators
+ui/controller/          ← Thymeleaf page controllers and HTMX fragment endpoints
+ui/models/              ← web form models, view models
+api/controllers/        ← JSON REST controllers
+api/model/              ← REST request/response models
+api/error/              ← REST error handling (@RestControllerAdvice)
+domain/service/         ← use cases, orchestration, @Transactional
+domain/model/           ← domain records/value types, enums
+domain/calculation/     ← calculators (PositionCalculator, GainLossCalculator, …)
 integration/marketdata/ ← TwelveData and exchange-rate clients
 persistence/entity/     ← JPA entities
 persistence/repository/ ← Spring Data repositories
-config/            ← MarketDataProperties, CacheConfig, SchedulerConfig
-support/           ← utilities
+config/                 ← MarketDataProperties, CacheConfig, SchedulerConfig
+support/                ← utilities (MoneyUtils, …)
 ```
 
-The project is in skeleton phase. Only `HomePageController` and its template exist; no entities, migrations, services, or integration code have been written yet.
+Cross-layer mapping uses factory methods: `request.toDomainModel()`, `Response.from(domain)`, `Domain.from(entity)`.
+
+UI pages: `GET /portfolios`, `GET /instruments`, `GET /transactions`, `GET /dashboard`  
+REST API: `GET/POST /api/portfolios`, `GET/POST /api/instruments`, etc.
 
 ## Spring Profiles
 

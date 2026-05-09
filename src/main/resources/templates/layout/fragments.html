@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+
+<!-- ==================== head ==================== -->
+<head th:fragment="head(title)">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title th:text="${title} + ' | Portfolio Tracker'">Portfolio Tracker</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css">
+    <link rel="stylesheet" th:href="@{/css/app.css}">
+    <script th:src="@{/vendor/htmx/htmx.min.js}" defer></script>
+</head>
+
+<!-- ==================== nav ==================== -->
+<nav th:fragment="nav" class="container-fluid">
+    <ul>
+        <li><strong><a th:href="@{/}">Portfolio Tracker</a></strong></li>
+    </ul>
+    <ul>
+        <li><a th:href="@{/dashboard}">Dashboard</a></li>
+        <li><a th:href="@{/portfolios}">Portfolios</a></li>
+        <li><a th:href="@{/instruments}">Instruments</a></li>
+        <li><a th:href="@{/transactions}">Transactions</a></li>
+    </ul>
+</nav>
+
+<!-- ==================== footer ==================== -->
+<footer th:fragment="footer" class="container-fluid">
+    <small>Portfolio Tracker</small>
+</footer>
+
+<!-- ==================== flash-messages ==================== -->
+<div th:fragment="flash-messages" aria-live="polite">
+    <div th:if="${successMessage}" role="alert" class="flash flash--success">
+        <span th:text="${successMessage}"></span>
+    </div>
+    <div th:if="${errorMessage}" role="alert" class="flash flash--error">
+        <span th:text="${errorMessage}"></span>
+    </div>
+</div>
+
+</html>

@@ -1,0 +1,45 @@
+/* ── Custom properties ─────────────────────────────────────────── */
+:root {
+    --nav-height: 3.5rem;
+    --content-max-width: 1200px;
+}
+
+/* ── Layout ────────────────────────────────────────────────────── */
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+body > main.container {
+    flex: 1;
+    padding-top: 1.5rem;
+    padding-bottom: 2rem;
+}
+
+body > footer {
+    margin-top: auto;
+    padding: 0.75rem 0;
+    border-top: 1px solid var(--pico-muted-border-color, #e0e0e0);
+    font-size: 0.8rem;
+    color: var(--pico-muted-color, #6c757d);
+}
+
+/* ── Flash messages ─────────────────────────────────────────────── */
+.flash {
+    padding: 0.75rem 1rem;
+    margin-bottom: 1rem;
+    border-radius: var(--pico-border-radius, 4px);
+}
+
+.flash--success {
+    background-color: var(--pico-ins-color, #d4edda);
+    border: 1px solid #c3e6cb;
+    color: #155724;
+}
+
+.flash--error {
+    background-color: var(--pico-del-color, #f8d7da);
+    border: 1px solid #f5c6cb;
+    color: #721c24;
+}
