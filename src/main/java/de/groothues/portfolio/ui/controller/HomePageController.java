@@ -1,13 +1,13 @@
-package de.groothues.portfolio.api.page;
+package de.groothues.portfolio.ui.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
-public class HomePageController {
+class HomePageController {
 
     @GetMapping("/")
-    public String home() {
+    String home() {
         return "home";
     }
 }
